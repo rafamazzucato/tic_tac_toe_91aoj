@@ -32,20 +32,21 @@ class _GameWidgetState extends State<GameWidget> {
   }
 
   _configureMethodChannelCallback() {
-    platform.setMethodCallHandler((call) async{
+    platform.setMethodCallHandler((call) async {
       print("Voltou para o flutter: $call");
 
       final action = call.method;
       final arguments = call.arguments.toString().replaceAll("\"", "");
       final splitted = arguments.split("|");
 
-      if(action == "sendAction"){
-        final message = Message(splitted[0], int.parse(splitted[1]), int.parse(splitted[2]));
+      if (action == "sendAction") {
+        final message = Message(
+            splitted[0], int.parse(splitted[1]), int.parse(splitted[2]));
 
-        if(message.user == (game!.creator ? 'p2' : 'p1')){
+        if (message.user == (game!.creator ? 'p2' : 'p1')) {
           setState(() {
             minhaVez = true;
-            cells[message.x][message.y] = 2 ;
+            cells[message.x][message.y] = 2;
           });
 
           _checkWinner();
@@ -168,7 +169,7 @@ class _GameWidgetState extends State<GameWidget> {
             if (result) {
               setState(() {
                 minhaVez = false;
-                cells[x][y]=1;
+                cells[x][y] = 1;
               });
               _checkWinner();
             }
